@@ -5,6 +5,7 @@ var seaHeight = 0;
 var i = 0;
 let yoff = 0;
 var lineHeight = 600;
+var loopYes = true;
 
 function preload() {
     table = loadTable("sea.csv", "header");
@@ -83,6 +84,13 @@ function draw() {
     text("1992", 200, 600);
     pop();
 
+    if (!loopYes || i >= rows.length) {
+        push();
+        fill(127, 127, 127, 200);
+        rect(0, 0, width, height);
+        pop();
+    }
+
     if (i >= rows.length) {
         push();
         stroke("FF0000");
@@ -98,5 +106,15 @@ function draw() {
         textFont(lato);
         textAlign(CENTER, CENTER);
         text("Sea levels are rising every year.", width / 2, height / 2)
+    }
+}
+
+function mousePressed() {
+    if (loopYes) {
+        noLoop();
+        loopYes = false;
+    } else {
+        loop();
+        loopYes = true;
     }
 }
